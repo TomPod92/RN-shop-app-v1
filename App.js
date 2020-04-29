@@ -9,8 +9,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/store';
 import ShopNavigator from './navigation/ShopNavigator.js';
 
-// const store = createStore(rootReducer, composeWithDevTools());
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
+// const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({

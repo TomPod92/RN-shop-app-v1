@@ -1,4 +1,5 @@
 import PRODUCTS from '../../data/dummy-data.js';
+import { DELETE_PRODUCT } from '../types.js';
 
 const initialState = {
     availableProducts: PRODUCTS,
@@ -6,7 +7,18 @@ const initialState = {
 };
 
 const productsReducer = (state = initialState, action) => {
-    return state;
+    switch(action.type) {
+        case DELETE_PRODUCT:
+            return {
+                ...state,
+                userProducts: state.userProducts.filter(current => current.id !== action.productId),
+                availableProducts: state.availableProducts.filter(current => current.id !== action.productId)
+            }
+        // ----------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------
+        default:
+            return state
+    }
 };
 
 export default productsReducer;
