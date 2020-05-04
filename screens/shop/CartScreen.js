@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, FlatList, Button } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Button, ActivityIndicator } from 'react-native';
 
+import Card from '../../components/UI/Card.js';
 import CartItem from '../../components/shop/CartItem.js';
 import { removeFromCart } from '../../redux/actions/cartActions.js';
 import { addOrder } from '../../redux/actions/ordersActions.js';
@@ -9,7 +10,8 @@ import colors from '../../constants/colors.js';
 
 const CartScreen = () => {
     const cartTotalAmount = useSelector(state => state.cart.totalAmount);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [ isLoading, setIsLoading ] = useState(false);
 
     const cartItems = useSelector(state => {
         const cartItemsArray = [];
@@ -26,16 +28,24 @@ const CartScreen = () => {
         return cartItemsArray.sort((a, b) => a.productId > b.productId ? 1 : -1);
     });
 
-    const handleAddOrder = () => {
-        dispatch(addOrder(cartItems, cartTotalAmount));
+    const handleAddOrder = async () => {
+        setIsLoading(true);
+        await dispatch(addOrder(cartItems, cartTotalAmount));
+        setIsLoading(false);
     }
 
     return (
         <View style={styles.screen}>
-            <View style={styles.summary}>
+            <Card style={styles.summary}>
                 <Text style={styles.summaryText}>Total: <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text></Text>
-                <Button title="Order Now" color={colors.accent} disabled={cartItems.length === 0} onPress={handleAddOrder}/>
-            </View>
+                
+                {isLoading ? 
+                    <ActivityIndicator size='small' color={colors.primary}/> 
+                    : 
+                    <Button title="Order Now" color={colors.accent} disabled={cartItems.length === 0} onPress={handleAddOrder}/>
+                }
+                
+            </Card>
             <FlatList 
                 data={cartItems} 
                 keyExtractor={item => item.productId} 
@@ -49,7 +59,6 @@ CartScreen.navigationOptions = {
     headerTitle: 'Your Cart'
 }
 
-
 const styles = StyleSheet.create({
     screen: {
         margin: 20,
@@ -61,13 +70,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         marginBottom: 20,
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        shadowOffset: {height: 2, width: 0},
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
     },
     summaryText: {
         fontFamily: 'open-sans-bold',

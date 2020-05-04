@@ -7,7 +7,8 @@ import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen.js';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
 import CartScreen from '../screens/shop/CartScreen.js';
 import OrderScreen from '../screens/shop/OrdersScreen.js';
-import UserProductScreen from '../screens/user/UserProductsScreen.js';
+import UserProductsScreen from '../screens/user/UserProductsScreen.js';
+import EditProductScreen from '../screens/user/EditProductScreen.js';
 import colors from '../constants/colors.js';
 
 const defaultNavOptions = {
@@ -45,7 +46,8 @@ const OrdersNavigator = createStackNavigator({
 });
 //--------------------------------------------------------------------------------
 const AdminNavigator = createStackNavigator({
-    UserProducts: UserProductScreen
+    UserProducts: UserProductsScreen,
+    EditProduct: EditProductScreen,
 }, {
     navigationOptions: {
         drawerIcon: drawerConfig => <Ionicons name={Platform.OS === 'android' ? "md-create" : "ios-create"} size={23} color={drawerConfig.tintColor}/>
