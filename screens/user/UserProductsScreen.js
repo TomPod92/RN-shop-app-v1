@@ -22,6 +22,14 @@ const UserProductsScreen = (props) => {
         ]);
     }
 
+    if(userProducts.length === 0) {
+        return (
+            <View style={styles.noInfo}>
+                <Text>No products found :(</Text>
+            </View>
+        )
+    }
+
     return (
         <FlatList 
             data={userProducts} 
@@ -63,6 +71,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    noInfo: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default UserProductsScreen;

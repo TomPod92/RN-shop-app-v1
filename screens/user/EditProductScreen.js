@@ -70,7 +70,7 @@ const EditProductScreen = (props) => {
             title: formState.inputValues.title, 
             imageUrl: formState.inputValues.imageUrl, 
             price: +formState.inputValues.price,
-            description: formState.inputValues.description 
+            description: formState.inputValues.description,
         };
 
         if(!formState.formIsValid) {
@@ -85,9 +85,9 @@ const EditProductScreen = (props) => {
 
         try {
             if(productToEdit) {
-                await dispatch(editProduct(product, productId));
+                await dispatch(editProduct(product));
             } else {
-                await dispatch(addProduct(product));
+                await dispatch(addProduct(product, productId));
             }
 
             props.navigation.goBack();

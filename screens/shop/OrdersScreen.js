@@ -30,6 +30,14 @@ const OrdersScreen = () => {
         )
     }
 
+    if(orders.length === 0) {
+        return (
+            <View style={styles.noInfo}>
+                <Text>No orders found :(</Text>
+            </View>
+        )
+    }
+
     return (
         <FlatList data={orders} keyExtractor={item => item.id} renderItem={itemData => <OrderItem order={itemData.item}/>}/>
     );
@@ -51,6 +59,11 @@ OrdersScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
     centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    noInfo: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

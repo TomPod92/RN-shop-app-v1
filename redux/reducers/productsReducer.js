@@ -4,8 +4,8 @@ import { CREATE_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT, SET_PRODUCTS } from '..
 import Product from '../../models/productModel.js';
 
 const initialState = {
-    availableProducts: PRODUCTS,
-    userProducts: PRODUCTS.filter(current => current.ownerId === 'u1')
+    availableProducts: [],
+    userProducts: []
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -13,13 +13,13 @@ const productsReducer = (state = initialState, action) => {
         case SET_PRODUCTS:
             return {
                 availableProducts: action.products,
-                userProducts: action.products.filter(current => current.ownerId === 'u1')
+                userProducts: action.userProducts
             }
         case CREATE_PRODUCT:
             // const { title, description, imageUrl, price } = action.product;
             const newProduct = new Product(
                 action.product.id, 
-                'u1', 
+                action.product.ownerId, 
                 action.product.title, 
                 action.product.imageUrl, 
                 action.product.description, 

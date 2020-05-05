@@ -8,9 +8,12 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './redux/store';
+import NavigatorContainer from './navigation/NavigationContainer.js';
 import ShopNavigator from './navigation/ShopNavigator.js';
 
-// const store = createStore(rootReducer, composeWithDevTools());
+// jezeli chcemy redux devtoolsy odkomentowac te dwie linie
+// const middleware = [ReduxThunk];
+// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)));
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
@@ -28,7 +31,7 @@ const App = () => {
   }
   return (
     <Provider store={store}>
-      <ShopNavigator />
+      <NavigatorContainer />
     </Provider>
   );
 }

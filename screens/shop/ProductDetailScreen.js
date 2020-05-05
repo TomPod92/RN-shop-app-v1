@@ -6,7 +6,6 @@ import { addToCart } from '../../redux/actions/cartActions.js';
 import colors from '../../constants/colors.js';
 
 const ProductDetailScreen = (props) => {
-    console.log(props.product)
     const productId = props.navigation.getParam('productId');
     const selectedProduct = useSelector(state => state.products.availableProducts.find(current => current.id === productId));
     const dispatch = useDispatch();
